@@ -220,7 +220,7 @@ scene('gra', () =>{
     player.onCollide('punkt', (p) => {
         score.value += 1
         play('coin', {
-            volume: 0.5
+            volume: 0.3
         })
         score.text = "Score:" + " " + score.value
         destroy(p)
