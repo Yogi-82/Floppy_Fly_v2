@@ -216,7 +216,9 @@ scene('gra', () =>{
 
     player.onCollide('punkt', (p) => {
         score.value += 1
-        play('coin')
+        play('coin', {
+            volume: 0.5
+        })
         score.text = "Score:" + " " + score.value
         destroy(p)
         if(score.value > highScoreText.value){
@@ -243,11 +245,15 @@ scene('gra', () =>{
 
     onKeyPress("space", () => {
         player.jump()
-        play('jump')   
+        play('jump', {
+            volume: 0.5
+        })   
     })
     onClick(() => {
         player.jump()
-        play('jump')   
+        play('jump', {
+            volume: 0.5
+        })   
     })
 
 
@@ -327,4 +333,5 @@ scene('koniec', (zdobytePunkty)=>{
     })
 
 })
+
 go('start')
