@@ -1,3 +1,5 @@
+/*Wiadomość dla ciebie ciekawska istoto, to co tu widzisz to jest kamień milowy programisty
+który został stworzony na trzeźwo ale czy spełna rozumu? Tego nie wiem*/
 kaboom({
     width: 320,
     height: 480,
@@ -12,6 +14,7 @@ if("serviceWorker" in navigator){
 }
 
 setGravity(2400)
+loadSprite('papiez', './sprite/papiez.png')
 loadSprite('background', './sprite/background1.png')
 loadFont("retro", './font/Minecraft.ttf')
 loadSprite('player', "./sprite/fly.png",{
@@ -217,7 +220,7 @@ scene('gra', () =>{
     player.onCollide('punkt', (p) => {
         score.value += 1
         play('coin', {
-            volume: 0.3
+            volume: 0.5
         })
         score.text = "Score:" + " " + score.value
         destroy(p)
@@ -236,10 +239,20 @@ scene('gra', () =>{
             mango.play()
             wait(10, ()=> mango.stop())
         }
+        
         if(score.value == 21 && highScoreText.value == 37 || score.value == 2137){
+            const papiez = add([
+                sprite('papiez'),
+            pos(width()/2 - 100, height() / 2),
+            move(UP, 200),
+            'papiez'
+            ])
             const barka = play('barka') 
             barka.play()
-            wait(5, () => barka.stop())
+            wait(8, () => barka.stop())
+            if(papiez.pos.y > 500){
+                destroy(papiez)
+            }
         }
     })
 
@@ -333,6 +346,4 @@ scene('koniec', (zdobytePunkty)=>{
     })
 
 })
-
 go('start')
-
