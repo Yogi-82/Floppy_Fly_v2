@@ -126,19 +126,31 @@ scene('gra', () =>{
         highScore = localStorage.getItem('highScore')
     }
 
+    let scoreShadow = add([
+        text("", {
+        font: 'retro',
+        size: '38'
+    }),
+    pos(width() / 2 + 2 , 26),
+    color(0,0,0),
+    { value: 0 },
+    z(99)
+    ])
+
     let score = add([
     text("", {
         font: 'retro',
         size: '38'
     }),
-    pos(width() / 2, 24),
+    pos(width() / 2 , 24),
     { value: 0 },
     z(100)
     ])
     score.text = score.value
+    scoreShadow.text = scoreShadow.value
 
-/*     let highScoreText = add([
-    text("High score:",{
+    let highScoreText = add([
+    text("",{
         font: 'retro',
         size: '26'
     }),
@@ -147,8 +159,7 @@ scene('gra', () =>{
     z(100)
     ])
 
-    highScoreText.value = highScore;
-    highScoreText.text = "High score: " + highScoreText.value */ // highscore on screen when u play 
+    highScoreText.value = highScore; // highscore on screen when u play 
 
 
     const player = add([
@@ -219,24 +230,24 @@ scene('gra', () =>{
 
     player.onCollide('punkt', (p) => {
         score.value += 1
+        scoreShadow.value += 1
         play('coin', {
             volume: 0.3
         })
         score.text = score.value
+        scoreShadow.text = scoreShadow.value
         destroy(p);
-        /*   if(score.value > highScoreText.value){
+        if(score.value > highScoreText.value){
             highScoreText.value = score.value
-            highScoreText.text = "High score: " + highScoreText.value
             localStorage.setItem('highScore', highScoreText.value)
         }
- */ // adding points to high score if score is higher than highscore
+            // adding points to high score if score is higher than highscore
 
         if(score.value > 0 && score.value % 20 === 0 && speed < 300 ){
             speed += 10
         }
         if(score.value == 67){
             const mango = play('mango')
-            mango.play()
             wait(10, ()=> mango.stop())
         }
         
@@ -248,9 +259,8 @@ scene('gra', () =>{
             'papiez'
             ])
             const barka = play('barka') 
-            barka.play()
             wait(8, () => barka.stop())
-            if(papiez.pos.y > 500){
+            if(papiez.pos.y < 0){
                 destroy(papiez)
             }
         }
@@ -297,13 +307,26 @@ scene('koniec', (zdobytePunkty)=>{
     scale(),
     fixed()
     ])
+
+    add([
+        text('Game Over', {
+            font: 'retro',
+            size: 36
+        }),
+        color(0,0,0),
+        pos(width()/2 + 2, height()/2 - 98),
+        anchor('center'),
+        z(99)
+    ])
+
     add([
         text('Game Over', {
             font: 'retro',
             size: 36
         }),
         pos(width()/2, height()/2 - 100),
-        anchor('center')
+        anchor('center'),
+        z(100)
     ])
     add([
         text('Score: ' + zdobytePunkty,{
@@ -314,7 +337,7 @@ scene('koniec', (zdobytePunkty)=>{
         anchor('center')
     ])
     add([
-        text('High Score: ' + localStorage.getItem('highScore'),{
+        text('High Score: ' + (localStorage.getItem('highScore') || 0 ),{
             font: 'retro',
             size: 28
         }),
