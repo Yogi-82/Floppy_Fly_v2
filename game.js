@@ -127,17 +127,17 @@ scene('gra', () =>{
     }
 
     let score = add([
-    text("Score:", {
+    text("", {
         font: 'retro',
-        size: '26'
+        size: '38'
     }),
-    pos(24, 24),
+    pos(width() / 2, 24),
     { value: 0 },
     z(100)
     ])
-    score.text = "Score: " + score.value
+    score.text = score.value
 
-    let highScoreText = add([
+/*     let highScoreText = add([
     text("High score:",{
         font: 'retro',
         size: '26'
@@ -148,7 +148,7 @@ scene('gra', () =>{
     ])
 
     highScoreText.value = highScore;
-    highScoreText.text = "High score: " + highScoreText.value
+    highScoreText.text = "High score: " + highScoreText.value */ // highscore on screen when u play 
 
 
     const player = add([
@@ -222,17 +222,17 @@ scene('gra', () =>{
         play('coin', {
             volume: 0.3
         })
-        score.text = "Score:" + " " + score.value
-        destroy(p)
-        if(score.value > highScoreText.value){
+        score.text = score.value
+        destroy(p);
+        /*   if(score.value > highScoreText.value){
             highScoreText.value = score.value
             highScoreText.text = "High score: " + highScoreText.value
             localStorage.setItem('highScore', highScoreText.value)
         }
+ */ // adding points to high score if score is higher than highscore
 
-
-        if(score.value > 50){
-            speed = 380
+        if(score.value > 0 && score.value % 20 === 0 && speed < 300 ){
+            speed += 10
         }
         if(score.value == 67){
             const mango = play('mango')
